@@ -23,7 +23,7 @@ Ansible version compatibility:
 
 - __2.3.0.0__ (current version in use for development of this role) 
 - 2.2.3.0
-- 2.1.6.0
+- 2.1.5.0
 - 2.0.2.0
 
 ## Example
@@ -68,8 +68,8 @@ variable | default | notes
 `default_release` | `{{ ansible_distribution_release }}` | `The default release to install packages from.` 
 `package_list` | `['docker-ce']` | `The list of packages to be installed`
 `repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable` | `Source strings for the repositories`
-`repo_list[0]['repo']['key']['url']` | `https://download.docker.com/linux/debian/gpg` | `URL to retrieve (the repository) key from`
 `repo_list[0]['repo']['key']['id']` | `0EBFCD88` | `Identifier of (the repository) key`
+`repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from` |
 `service_name` | `docker` | `Name of the (docker) service`
 `supported_distro_list` | `['jessie', 'trusty']` | `A list of distribution releases this role supports`
 `update_cache` | `yes` | `Run the equivalent of apt-get update before the operation`
