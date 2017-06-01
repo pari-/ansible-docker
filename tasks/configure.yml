@@ -1,0 +1,19 @@
+---
+
+- name: generate configuration file
+  template:
+    src: "etc/docker/daemon.json.j2"
+    dest: "{{ docker_config_file }}"
+  register: docker_daemon_config
+  notify:
+    - "restart docker"
+
+- name: ensure the service is started and enabled at boot
+  service:
+    name: "{{ docker_service_name }}"
+    state: started
+    enabled: yes
+
+- name: flush handlers immediately in case of configuration changes
+  meta: flush_handlers
+  when: docker_daemon_config is defined and docker_daemon_config.changed

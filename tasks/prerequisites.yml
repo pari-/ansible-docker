@@ -1,0 +1,14 @@
+---
+
+- name: fail unless we run on a supported distribution
+  fail:
+    msg: "Unfortunately, the 'docker'-role is not supported on {{ ansible_distribution_release }}! :-("
+  when: ansible_distribution_release|lower not in docker_supported_distro_list
+
+- name: install prerequisite packages
+  apt:
+    default_release: "{{ docker_pre_default_release }}"
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ docker_pre_package_list }}"

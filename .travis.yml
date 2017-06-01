@@ -1,0 +1,27 @@
+---
+
+sudo: "required"
+dist: "trusty"
+language: "python"
+python: "2.7"
+
+env:
+  - "ANSIBLE_VERSION=2.3.0.0"
+  - "ANSIBLE_VERSION=2.2.3.0"
+  - "ANSIBLE_VERSION=2.1.6.0"
+  - "ANSIBLE_VERSION=2.0.2.0"
+
+branches:
+  only:
+    - "master"
+
+before_install:
+  - "sudo apt-get update -qq"
+
+install:
+  - "pip install ansible==$ANSIBLE_VERSION"
+
+script:
+  - "ansible-playbook -i localhost, test.yml --syntax-check --list-tasks"
+  - "ansible-playbook -i localhost, test.yml -vvvv --connection=local --sudo"
+  - "ansible-playbook -i localhost, test.yml --connection=local --sudo | tee /tmp/o; grep -q 'changed=0.*failed=0' /tmp/o && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"

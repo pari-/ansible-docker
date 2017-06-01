@@ -1,0 +1,8 @@
+---
+
+- hosts: "{{ hosts_group | default('all') }}"
+
+  vars:
+
+  roles:
+    - { role: "{{ role_name | default('ansible-docker') }}", tags: ['docker'] }
