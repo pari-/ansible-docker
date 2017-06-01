@@ -21,9 +21,9 @@ Currently this role is developed for and tested on Debian GNU/Linux (release: je
 
 Ansible version compatibility:
 
-- __2.3.0.0__ (current version in use for development of this role) 
+- __2.3.1.0__ (current version in use for development of this role) 
 - 2.2.3.0
-- 2.1.5.0
+- 2.1.6.0
 - 2.0.2.0
 
 ## Example
@@ -42,6 +42,8 @@ Ansible version compatibility:
 The following shows a minimal example regarding the usage of `docker_daemon_config_opts`:
 
 ```yaml
+---
+
 - hosts: "{{ hosts_group | default('all') }}"
 
   vars:
@@ -67,10 +69,10 @@ variable | default | notes
 `daemon_config_opts` | `{}` | `Configuration hash that accepts docker daemon configuration optons`
 `default_release` | `{{ ansible_distribution_release }}` | `The default release to install packages from.` 
 `package_list` | `['docker-ce']` | `The list of packages to be installed`
-`repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable` | `Source strings for the repositories`
+`repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable` | `Source string for the repositories`
 `repo_list[0]['repo']['key']['id']` | `0EBFCD88` | `Identifier of (the repository) key`
 `repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from` |
-`service_name` | `docker` | `Name of the (docker) service`
+`service_name` | `docker` | `Name of the service`
 `supported_distro_list` | `['jessie', 'trusty']` | `A list of distribution releases this role supports`
 `update_cache` | `yes` | `Run the equivalent of apt-get update before the operation`
 
