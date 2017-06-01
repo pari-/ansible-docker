@@ -67,11 +67,13 @@ variable | default | notes
 `cache_valid_time` | `3600` | `Update the apt cache if its older than the set value (in seconds)`
 `config_file` | `/etc/docker/daemon.json` | `Absolute path to docker's configuration file`
 `daemon_config_opts` | `{}` | `Configuration hash that accepts docker daemon configuration optons`
-`default_release` | `{{ ansible_distribution_release }}` | `The default release to install packages from.` 
+`default_release` | `{{ ansible_distribution_release }}` | `The default release to install packages from`
+`pre_default_release` | `{{ docker_default_release }}` | `The default release to install packages (pre_package_list) from`
+`pre_package_list` | `['apt-transport-https','ca-certificates']` | `The list of prerequisite packages to be installed`
 `package_list` | `['docker-ce']` | `The list of packages to be installed`
 `repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable` | `Source string for the repositories`
 `repo_list[0]['repo']['key']['id']` | `0EBFCD88` | `Identifier of (the repository) key`
-`repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from` |
+`repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from`
 `service_name` | `docker` | `Name of the service`
 `supported_distro_list` | `['jessie', 'trusty']` | `A list of distribution releases this role supports`
 `update_cache` | `yes` | `Run the equivalent of apt-get update before the operation`
