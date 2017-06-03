@@ -75,7 +75,7 @@ variable | default | notes
 `repo_list[0]['repo']['key']['id']` | `0EBFCD88` | `Identifier of (the repository) key`
 `repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from`
 `service_name` | `docker` | `Name of the service`
-`supported_distro_list` | `['jessie', 'trusty']` | `A list of distribution releases this role supports`
+`supported_distro_list` | `['jessie']` | `A list of distribution releases this role supports`
 `update_cache` | `yes` | `Run the equivalent of apt-get update before the operation`
 
 ## Dependencies

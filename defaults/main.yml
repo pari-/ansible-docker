@@ -17,6 +17,5 @@ docker_repo_list:
       id: "0EBFCD88"
 docker_service_name: "docker"
 docker_supported_distro_list:
-  - "trusty"
   - "jessie"
 docker_update_cache: "yes"
