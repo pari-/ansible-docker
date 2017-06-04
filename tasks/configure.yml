@@ -1,5 +1,10 @@
 ---
 
+- name: enforce presence of /etc/docker
+  file:
+    state: directory
+    dest: "/etc/docker"
+
 - name: generate configuration file
   template:
     src: "etc/docker/daemon.json.j2"
