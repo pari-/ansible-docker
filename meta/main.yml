@@ -3,9 +3,13 @@
 galaxy_info:
   author: "Patrick Ringl"
   description: "An Ansible role which installs and configures Docker"
-  license: "MIT"
-  min_ansible_version: "2.0.2.0"
+  dependencies: []
   galaxy_tags:
     - "docker"
     - "docker-ce"
-  dependencies: []
+  license: "MIT"
+  min_ansible_version: "2.0.2.0"
+  platforms:
+    - name: "Debian"
+      versions:
+        - "jessie"
