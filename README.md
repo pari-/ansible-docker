@@ -21,7 +21,7 @@ Currently this role is developed for and tested on Debian GNU/Linux (release: st
 
 Ansible version compatibility:
 
-- __2.3.1.0__ (current version in use for development of this role) 
+- __2.3.2.0__ (current version in use for development of this role) 
 - 2.2.3.0
 - 2.1.6.0
 - 2.0.2.0
@@ -67,7 +67,7 @@ variable | default | notes
 `cache_valid_time` | `3600` | `Update the apt cache if its older than the set value (in seconds)`
 `config_file` | `/etc/docker/daemon.json` | `Absolute path to docker's configuration file`
 `daemon_config_opts` | `{}` | `Configuration hash that accepts docker daemon configuration optons`
-`default_release` | `{{ ansible_distribution_release }}` | `The default release to install packages from`
+`default_release` | `{{ ansible_distribution_release|lower }}` | `The default release to install packages from`
 `pre_default_release` | `{{ docker_default_release }}` | `The default release to install packages (pre_package_list) from`
 `pre_package_list` | `['apt-transport-https','ca-certificates']` | `The list of prerequisite packages to be installed`
 `package_list` | `['docker-ce']` | `The list of packages to be installed`
