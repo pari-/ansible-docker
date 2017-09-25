@@ -1,6 +1,6 @@
 ---
 
-- name: add additional apt keys
+- name: "add additional apt keys"
   apt_key:
     id: "{{ item.key.id | default(omit) }}"
     url: "{{ item.key.url | default(omit) }}"
@@ -11,7 +11,7 @@
   with_items:
     - "{{ docker_repo_list }}"
 
-- name: add additional apt repositories
+- name: "add additional apt repositories"
   apt_repository:
     repo: "{{ item.repo }}"
     state: "present"
@@ -19,15 +19,15 @@
   with_items:
     - "{{ docker_repo_list }}"
 
-- name: uninstall old versions
+- name: "uninstall old versions"
   apt:
     name: "{{ item }}"
-    state: absent
+    state: "absent"
   with_items:
     - "docker"
     - "docker-engine"
 
-- name: install packages
+- name: "install packages"
   apt:
     name: "{{ item }}"
     update_cache: "{{ docker_update_cache|default(omit) }}"

@@ -1,5 +1,6 @@
 ---
 
+docker_allow_outside_world_communication: 1
 docker_cache_valid_time: 3600
 docker_config_file: "/etc/docker/daemon.json"
 docker_daemon_config_opts: {}

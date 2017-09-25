@@ -1,6 +1,6 @@
 ---
 
-- name: restart docker
+- name: "restart docker"
   service:
     name: "{{ docker_service_name }}"
-    state: restarted
+    state: "restarted"

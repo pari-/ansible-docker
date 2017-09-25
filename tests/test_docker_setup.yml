@@ -1,0 +1,12 @@
+---
+
+- name: "docker run hello-world"
+  command: "docker run hello-world"
+  register: "result"
+  changed_when: False
+
+- name: "fail if setup is not working correctly"
+  fail:
+    msg: "Something went wrong with your Docker installation :-("
+  when:
+    - "result.stdout.find('This message shows that your installation appears to be working correctly') == -1"

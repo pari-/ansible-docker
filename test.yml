@@ -1,8 +1,18 @@
 ---
 
-- hosts: "{{ hosts_group | default('all') }}"
-
+- hosts: "all"
   vars:
-
+    docker_daemon_config_opts:
+      bip: "192.168.1.5/24"
+      dns:
+        - "8.8.4.4"
+      mtu: 1500
   roles:
-    - { role: "{{ role_name | default('ansible-docker') }}", tags: ['docker'] }
+    - role: "ansible-docker"
+      tags:
+        - "docker"
+  post_tasks:
+    - block:
+        - include: "tests/test_docker_setup.yml"
+      tags:
+        - "tests"

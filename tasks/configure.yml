@@ -1,24 +1,30 @@
 ---
 
-- name: enforce presence of /etc/docker
+- name: "enforce presence of /etc/docker"
   file:
-    state: directory
+    state: "directory"
     dest: "/etc/docker"
 
-- name: generate configuration file
+- name: "generate configuration file"
   template:
     src: "etc/docker/daemon.json.j2"
     dest: "{{ docker_config_file }}"
-  register: docker_daemon_config
+  register: "docker_daemon_config"
   notify:
     - "restart docker"
 
-- name: ensure the service is started and enabled at boot
+- name: "ensure the service is started and enabled at boot"
   service:
     name: "{{ docker_service_name }}"
-    state: started
-    enabled: yes
+    state: "started"
+    enabled: "yes"
 
-- name: flush handlers immediately in case of configuration changes
-  meta: flush_handlers
+- name: "allow communicating to the outside world"
+  sysctl:
+    name: "net.ipv4.conf.all.forwarding"
+    state: "present"
+    value: "{{ docker_allow_outside_world_communication }}"
+
+- name: "flush handlers immediately in case of configuration changes"
+  meta: "flush_handlers"
   when: docker_daemon_config is defined and docker_daemon_config.changed
