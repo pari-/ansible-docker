@@ -1,0 +1,7 @@
+---
+
+- name: "test if /version gives reasoanble output"
+  debug:
+    msg: "{{ _docker_http_version['content'] | from_json | json_query('Version') }}"
+  when:
+    - "_docker_http_version['content'] | from_json | json_query('Version')"

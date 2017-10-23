@@ -43,8 +43,13 @@ Ansible version compatibility:
       tags:
         - "docker"
   post_tasks:
+    - block:
+      - include: "tests/test_docker_setup.yml"
       - block:
-        - include: "tests/test_docker_setup.yml"
+          - include: "tests/test_docker_tcp_listen.yml"
+          - include: "tests/test_docker_http_version.yml"
+        when:
+          - "docker_daemon_opts | regex_search('tcp://(.*):([0-9]+)')"
       tags:
         - "tests"
 ```
@@ -59,6 +64,7 @@ variable | default | notes
 `cache_valid_time` | `3600` | `Update the apt cache if its older than the set value (in seconds)`
 `config_file` | `/etc/docker/daemon.json` | `Absolute path to docker's configuration file`
 `daemon_config_opts` | `{}` | `Configuration hash that accepts docker daemon configuration optons`
+`daemon_opts` | `-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375` | `Daemon opts that can't be overriden via daemon.json`
 `default_release` | `{{ ansible_distribution_release\|lower }}` | `The default release to install packages from`
 `pre_default_release` | `{{ docker_default_release }}` | `The default release to install packages (pre_package_list) from`
 `pre_package_list` | `['apt-transport-https','ca-certificates']` | `The list of prerequisite packages to be installed`
@@ -66,8 +72,10 @@ variable | default | notes
 `repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable` | `Source string for the repositories`
 `repo_list[0]['repo']['key']['id']` | `0EBFCD88` | `Identifier of (the repository) key`
 `repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from`
+`service_limitnofile` | `1048576` | `Docker daemons nofile limit`
 `service_name` | `docker` | `Name of the service`
 `supported_distro_list` | `['jessie', 'stretch']` | `A list of distribution releases this role supports`
+`test_container_name` | `{{ ansible_date_time['epoch'] }}` | `The name of the container that is used in tests/`
 `update_cache` | `yes` | `Run the equivalent of apt-get update before the operation`
 
 ## Dependencies

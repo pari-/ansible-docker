@@ -13,18 +13,25 @@
   notify:
     - "restart docker"
 
-- name: "ensure the service is started and enabled at boot"
-  service:
-    name: "{{ docker_service_name }}"
-    state: "started"
-    enabled: "yes"
-
 - name: "allow communicating to the outside world"
   sysctl:
     name: "net.ipv4.conf.all.forwarding"
     state: "present"
     value: "{{ docker_allow_outside_world_communication }}"
 
-- name: "flush handlers immediately in case of configuration changes"
+- name: "integrate docker with systemd"
+  template:
+    src: "etc/systemd/system/docker.service.j2"
+    dest: "/etc/systemd/system/docker.service"
+  notify:
+    - "systemctl daemon-reload"
+
+- name: "flush handlers immediately"
   meta: "flush_handlers"
-  when: docker_daemon_config is defined and docker_daemon_config.changed
+
+- name: "ensure the docker.service is restarted and enabled at boot"
+  service:
+    name: "{{ docker_service_name }}"
+    state: "started"
+    enabled: "yes"
+    use: "systemd"

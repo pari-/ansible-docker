@@ -1,0 +1,8 @@
+---
+
+- name: "checking for the web-compatible TCP socket"
+  uri:
+    return_content: "yes"
+    status_code: 200
+    url: "http://{{ docker_daemon_opts | regex_replace('.*tcp://(.*):([0-9]+).*$', '\\1:\\2') }}/version"
+  register: "_docker_http_version"

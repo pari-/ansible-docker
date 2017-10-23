@@ -13,6 +13,11 @@
         - "docker"
   post_tasks:
     - block:
-        - include: "tests/test_docker_setup.yml"
+      - include: "tests/test_docker_setup.yml"
+      - block:
+          - include: "tests/test_docker_tcp_listen.yml"
+          - include: "tests/test_docker_http_version.yml"
+        when:
+          - "docker_daemon_opts | regex_search('tcp://(.*):([0-9]+)')"
       tags:
         - "tests"

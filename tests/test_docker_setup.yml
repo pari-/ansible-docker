@@ -1,12 +1,25 @@
 ---
 
-- name: "docker run hello-world"
-  command: "docker run hello-world"
-  register: "result"
+- name: "docker run --name {{ docker_test_container_name }} (hello-world)"
+  command: "docker run --name {{ docker_test_container_name }} hello-world"
+  register: "_docker_run_result"
   changed_when: False
+
+- name: "docker stop {{ docker_test_container_name }} (hello-world)"
+  command: "docker stop {{ docker_test_container_name }}"
+  changed_when: False
+  register: "_docker_stop_result"
+  when:
+    - "_docker_run_result|success"
+
+- name: "docker rm {{ docker_test_container_name }} (hello-world)"
+  command: "docker rm {{ docker_test_container_name }}"
+  changed_when: False
+  when:
+    - "_docker_stop_result|success"
 
 - name: "fail if setup is not working correctly"
   fail:
     msg: "Something went wrong with your Docker installation :-("
   when:
-    - "result.stdout.find('This message shows that your installation appears to be working correctly') == -1"
+    - "_docker_run_result.stdout.find('This message shows that your installation appears to be working correctly') == -1"

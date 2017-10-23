@@ -1,6 +1,11 @@
 ---
 
+- name: "systemctl daemon-reload"
+  command: "systemctl daemon-reload "
+
 - name: "restart docker"
   service:
+    enabled: True
     name: "{{ docker_service_name }}"
     state: "restarted"
+    use: "systemd"
