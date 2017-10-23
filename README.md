@@ -68,7 +68,7 @@ variable | default | notes
 `pre_default_release` | `{{ docker_default_release }}` | `The default release to install packages (pre_package_list) from`
 `pre_package_list` | `['apt-transport-https','ca-certificates']` | `The list of prerequisite packages to be installed`
 `package_list` | `['docker-ce']` | `The list of packages to be installed`
-`repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable` | `Source string for the repositories`
+`repo_list[0]['repo']` | `deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution\|lower }} {{ ansible_distribution_release }} stable` | `Source string for the repositories`
 `repo_list[0]['repo']['key']['id']` | `0EBFCD88` | `Identifier of (the repository) key`
 `repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from`
 `service_limitnofile` | `1048576` | `Docker daemons nofile limit`
