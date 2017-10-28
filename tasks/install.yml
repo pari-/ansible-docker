@@ -7,7 +7,10 @@
     keyserver: "{{ item.key.keyserver | default(omit) }}"
     validate_certs: "{{ item.key.validate_certs | default(omit) }}"
     state: "present"
-  when: item.key is defined and item.key and (item.key.id is defined and item.key.id or item.key.url is defined and item.key.url)
+  when:
+    - "item.key is defined"
+    - "item.key"
+    - "item.key.id is defined and item.key.id or item.key.url is defined and item.key.url"
   with_items:
     - "{{ docker_repo_list }}"
 
@@ -15,7 +18,9 @@
   apt_repository:
     repo: "{{ item.repo }}"
     state: "present"
-  when: item.repo is defined and item.repo
+  when:
+    - "item.repo is defined"
+    - "item.repo"
   with_items:
     - "{{ docker_repo_list }}"
 

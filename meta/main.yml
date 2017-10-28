@@ -2,8 +2,8 @@
 
 galaxy_info:
   author: "Patrick Ringl"
-  description: "An Ansible role which installs and configures Docker"
   dependencies: []
+  description: "An Ansible role which installs and configures Docker"
   galaxy_tags:
     - "docker"
     - "docker-ce"
