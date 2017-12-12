@@ -1,5 +1,5 @@
 {
 {% for config_option in docker_daemon_config_opts|sort %}
-  "{{ config_option }}": {{ docker_daemon_config_opts[config_option]|to_json }}{{ (loop.last) | ternary('', ',') }}
+  "{{ config_option }}": {{ docker_daemon_config_opts[config_option]|to_nice_json }}{{ (loop.last) | ternary('', ',') }}
 {% endfor %}
 }
