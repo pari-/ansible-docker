@@ -1,5 +1,7 @@
 {
 {% for config_option in docker_daemon_config_opts|sort %}
-  "{{ config_option }}": {{ docker_daemon_config_opts[config_option]|to_json }}{{ (loop.last) | ternary('', ',') }}
+{% if docker_daemon_config_opts[config_option] is defined and docker_daemon_config_opts[config_option] %}
+  "{{ config_option }}": {{ docker_daemon_config_opts[config_option] | to_json }}{{ (loop.last) | ternary('', ',') }}
+{% endif %}
 {% endfor %}
 }

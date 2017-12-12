@@ -32,11 +32,9 @@ Ansible version compatibility:
 
 - hosts: "all"
   vars:
-    docker_daemon_config_opts:
-      bip: "192.168.1.5/24"
+    docker_daemon_config_opts_overrides:
       dns:
-        - "8.8.4.4"
-      mtu: 1500
+        - "8.8.8.8"
   roles:
     - role: "ansible-docker"
       tags:
@@ -59,10 +57,12 @@ Available variables are listed below, along with default values (see defaults/ma
 
 variable | default | notes
 -------- | ------- | -----
-`allow_outside_world_communication` | `1` | `Allow communicating to the outside world``
+`allow_outside_world_communication` | `1` | `Allow communicating to the outside world`
 `cache_valid_time` | `3600` | `Update the apt cache if its older than the set value (in seconds)`
 `config_file` | `/etc/docker/daemon.json` | `Absolute path to docker's configuration file`
-`daemon_config_opts` | `{}` | `Configuration hash that accepts docker daemon configuration optons`
+`daemon_config_opts_defaults` | `{}` | `Docker daemon configuration options (role defaults)`
+`daemon_config_opts_overrides` | `{}` | `Docker daemon configuration options (overrides)`
+`daemon_config_opts` | `{{ docker_daemon_config_opts_defaults\|combine(docker_daemon_config_opts_overrides) }}` | `Configuration hash containing docker daemon configuration options`
 `daemon_opts` | `-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375` | `Daemon opts that can't be overriden via daemon.json`
 `default_release` | `{{ ansible_distribution_release\|lower }}` | `The default release to install packages from`
 `pre_default_release` | `{{ docker_default_release }}` | `The default release to install packages (pre_package_list) from`

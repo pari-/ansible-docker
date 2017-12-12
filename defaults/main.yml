@@ -3,7 +3,13 @@
 docker_allow_outside_world_communication: 1
 docker_cache_valid_time: 3600
 docker_config_file: "/etc/docker/daemon.json"
-docker_daemon_config_opts: {}
+docker_daemon_config_opts_defaults:
+  bip: "192.168.1.5/24"
+  dns:
+    - "8.8.4.4"
+  mtu: 1500
+docker_daemon_config_opts_overrides: {}
+docker_daemon_config_opts: "{{ docker_daemon_config_opts_defaults|combine(docker_daemon_config_opts_overrides) }}"
 docker_daemon_opts: "-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375"
 docker_default_release: "{{ ansible_distribution_release|lower }}"
 docker_package_list:
