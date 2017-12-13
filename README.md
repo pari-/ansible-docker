@@ -8,6 +8,10 @@ An Ansible role which installs and configures Docker
 
 - [Requirements](#requirements)
 - [Example](#example)
+- [Configuration overrides](#configuration-overrides)
+  * [add 'live-restore' option](#add-live-restore-option)
+  * [override the DNS server(s) to use](#override-the-dns-servers-to-use)
+  * [unset a configured option](#unset-a-configured-option)
 - [Defaults](#defaults)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -31,10 +35,6 @@ Ansible version compatibility:
 ---
 
 - hosts: "all"
-  vars:
-    docker_daemon_config_opts_overrides:
-      dns:
-        - "8.8.8.8"
   roles:
     - role: "ansible-docker"
       tags:
@@ -51,6 +51,32 @@ Ansible version compatibility:
         - "tests"
 ```
 
+## Configuration overrides
+
+You can set additional as well as unset already configured options: 
+
+### add 'live-restore' option
+
+```yaml
+  docker_daemon_cfg_overrides:
+    live-restore: True
+```
+
+### override the DNS server(s) to use
+
+```yaml
+  docker_daemon_cfg_overrides:
+    dns:
+      - "8.8.8.8"
+```
+
+### unset a configured option
+
+```yaml
+  docker_daemon_cfg_overrides:
+    mtu: ""
+```
+
 ## Defaults
 
 Available variables are listed below, along with default values (see defaults/main.yml). They're generally prefixed with `docker_` (which I deliberately leave out here for better formatting).
@@ -60,9 +86,9 @@ variable | default | notes
 `allow_outside_world_communication` | `1` | `Allow communicating to the outside world`
 `cache_valid_time` | `3600` | `Update the apt cache if its older than the set value (in seconds)`
 `config_file` | `/etc/docker/daemon.json` | `Absolute path to docker's configuration file`
-`daemon_config_opts_defaults` | `{}` | `Docker daemon configuration options (role defaults)`
-`daemon_config_opts_overrides` | `{}` | `Docker daemon configuration options (overrides)`
-`daemon_config_opts` | `{{ docker_daemon_config_opts_defaults\|combine(docker_daemon_config_opts_overrides) }}` | `Configuration hash containing docker daemon configuration options`
+`daemon_cfg_defaults` | `{}` | `Docker daemon configuration options (role defaults)`
+`daemon_cfg_overrides` | `{}` | `Docker daemon configuration options (overrides)`
+`daemon_cfg` | `{{ docker_daemon_cfg_defaults\|combine(docker_daemon_cfg_overrides) }}` | `Configuration hash containing docker daemon configuration options`
 `daemon_opts` | `-H unix:///var/run/docker.sock -H tcp://0.0.0.0:2375` | `Daemon opts that can't be overriden via daemon.json`
 `default_release` | `{{ ansible_distribution_release\|lower }}` | `The default release to install packages from`
 `pre_default_release` | `{{ docker_default_release }}` | `The default release to install packages (pre_package_list) from`
