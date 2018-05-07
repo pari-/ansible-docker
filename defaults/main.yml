@@ -26,7 +26,6 @@ docker_repo_list:
 docker_service_name: "docker"
 docker_service_limitnofile: 1048576
 docker_supported_distro_list:
-  - "jessie"
   - "stretch"
 docker_test_container_name: "{{ ansible_date_time['epoch'] }}"
 docker_update_cache: "yes"

@@ -21,7 +21,7 @@ An Ansible role which installs and configures Docker
 
 ## Requirements
 
-Currently this role is developed for and tested on Debian GNU/Linux (release: stretch). It is assumed to work on other Debian distributions as well.
+Currently this role is developed for and tested on Debian GNU/Linux (release: stretch).
 
 Ansible version compatibility: [Dockerfile](https://github.com/pari-/docker-debian-ansible/blob/master/debian/stretch/Dockerfile)
 
@@ -95,7 +95,7 @@ variable | default | notes
 `repo_list[0]['repo']['key']['keyserver']` | `keyserver.ubuntu.com` | `Keyserver to retrieve the key (for the repository) from`
 `service_limitnofile` | `1048576` | `Docker daemons nofile limit`
 `service_name` | `docker` | `Name of the service`
-`supported_distro_list` | `['jessie', 'stretch']` | `A list of distribution releases this role supports`
+`supported_distro_list` | `['stretch']` | `A list of distribution releases this role supports`
 `test_container_name` | `{{ ansible_date_time['epoch'] }}` | `The name of the container that is used in tests/`
 `update_cache` | `yes` | `Run the equivalent of apt-get update before the operation`
 
