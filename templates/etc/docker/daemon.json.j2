@@ -1,5 +1,1 @@
-{
-{% for config_option in docker_daemon_cfg|sort if docker_daemon_cfg[config_option] %}
-  "{{ config_option }}": {{ docker_daemon_cfg[config_option] | to_json }}{{ (not loop.last) | ternary(',', '') }}
-{% endfor %}
-}
+{{ docker_daemon_cfg | to_nice_json }}
