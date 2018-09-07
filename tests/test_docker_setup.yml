@@ -1,7 +1,7 @@
 ---
 
 - name: "docker run --name {{ docker_test_container_name }} (hello-world)"
-  command: "docker run --name {{ docker_test_container_name }} hello-world"
+  command: "docker run --name {{ docker_test_container_name }} hello-world:linux"
   register: "_docker_run_result"
   changed_when: False
 
